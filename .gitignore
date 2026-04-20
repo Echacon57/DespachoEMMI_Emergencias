@@ -1,0 +1,11 @@
+# Archivos de pruebas a ignorar
+PIA_datosReal.py
+Pruebas.py
+
+# Entornos virtuales y configuraciones locales
+.venv/
+.idea/
+__pycache__/
+
+cache/
+monterrey_red_ambulancias.graphml
