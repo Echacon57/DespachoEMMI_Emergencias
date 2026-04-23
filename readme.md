@@ -49,3 +49,4 @@ python main.py
 
 ## Ejemplo de visualización
 ![Ejemplo de Ruta](reportes_viales/Choque_en_Constitución_Lunes_18hrs.png)
+![Ejemplo de ejecucion](reportes_viales/ejemplo_ejecución.png)
