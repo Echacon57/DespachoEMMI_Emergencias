@@ -34,7 +34,7 @@ Este proyecto modela la red vial real de la ciudad como un grafo complejo y util
 ### Prerrequisitos
 Se recomienda utilizar un entorno virtual. Instala las dependencias necesarias ejecutando en la consola del entorno:
 ```bash
-pip install osmnx networkx pandas matplotlib
+pip install osmnx networkx pandas matplotlib scikit-learn
 ```
 
 ## Ejecución
