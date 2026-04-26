@@ -15,7 +15,7 @@ Este proyecto modela la red vial real de la ciudad como un grafo complejo y util
 
 ## Características Principales
 
-* ** Topología Real:** Extracción de la red vial de Monterrey (radio de 8 km) mediante `osmnx` y OpenStreetMap.
+* **Topología Real:** Extracción de la red vial de Monterrey (radio de 8 km) mediante `osmnx` y OpenStreetMap.
 * **Tráfico Dinámico Estacional:** Multiplicadores de tráfico inyectados vía `pandas` que diferencian entre Horas Pico Laborales, Picos Comerciales de Fin de Semana y Horas Valle.
 * **Geocodificación Interactiva:** El sistema traduce direcciones de texto (ej. "Parque Fundidora") a coordenadas geoespaciales precisas en tiempo real.
 * **Jerarquía Visual:** Renderizado del mapa de la ciudad mostrando el "Top 3" de bases más rápidas, destacando la ruta óptima en rojo sobre rutas alternativas en cian.
