@@ -246,10 +246,10 @@ def main():
     ]
 
     for prueba in pruebas:
-        simular_despacho(G, hospitales_nodos, prueba["lat"], prueba["lng"], prueba["hora"], prueba["dia"],
-                         prueba["nombre"])
+        simular_despacho(G, hospitales_nodos, prueba["lat"], prueba["lng"], prueba["hora"], prueba["dia"],prueba["nombre"])
 
-    # MODO INTERACTIVO
+
+        # MODO INTERACTIVO (DESPACHO EN TIEMPO REAL)
     print("\n============================================================")
     print(" SISTEMA DE DESPACHO INTERACTIVO INICIADO")
     print("============================================================")
@@ -257,41 +257,62 @@ def main():
     dias_validos = ['lunes', 'martes', 'miércoles', 'miercoles', 'jueves', 'viernes', 'sábado', 'sabado', 'domingo']
 
     while True:
-        direccion_usuario = input("\nIngresa la dirección del accidente (o escribe 'salir' para terminar):\n> ")
+        print("\nIngresa la dirección del accidente, o las coordenadas (Ej. 25.669, -100.341)")
+        entrada_usuario = input("   (Escribe 'salir' para terminar):\n> ").strip()
 
-        if direccion_usuario.strip().lower() in ['salir', 'exit', 'parar', 'terminar', 'cerrar']:
+        if entrada_usuario.lower() in ['salir', 'exit', 'parar', 'terminar', 'cerrar']:
             print("\nApagando el Sistema de Despacho EMMI.")
             break
 
-        query_busqueda = f"{direccion_usuario}, Monterrey, Nuevo Leon, Mexico"
+        es_coordenada = False
+        partes = entrada_usuario.split(',')
+
+        if len(partes) == 2:
+            try:
+                # Intentamos convertir las dos partes a números decimales
+                lat_usuario = float(partes[0].strip())
+                lng_usuario = float(partes[1].strip())
+                es_coordenada = True
+                nombre_emergencia = f"Coords_{lat_usuario}_{lng_usuario}"
+            except ValueError:
+                # Si falla, significa que era texto con una coma (Ej. "Madero, Centro")
+                es_coordenada = False
 
         try:
-            lat_usuario, lng_usuario = ox.geocode(query_busqueda)
-            print(f" ¡Ubicación localizada! -> Lat: {lat_usuario:.6f}, Lng: {lng_usuario:.6f}")
-
-            # --- VALIDACIÓN DEL DÍA ---
+            # Si NO son coordenadas, usamos el satélite para traducir el texto
+            if not es_coordenada:
+                query_busqueda = f"{entrada_usuario}, Monterrey, Nuevo Leon, Mexico"
+                lat_usuario, lng_usuario = ox.geocode(query_busqueda)
+                nombre_emergencia = entrada_usuario
+            else:
+                print("\nCoordenadas detectadas directamente. Omitiendo satélite...")
+                print(f"¡Ubicación fijada! -> Lat: {lat_usuario:.6f}, Lng: {lng_usuario:.6f}")
+                # --- VALIDACIÓN DEL DÍA ---
             while True:
-                dia_str = input("\n Ingresa el día de la semana (Ej. 'Lunes', 'Sabado', 'Domingo'):\n> ").strip().lower()
+                dia_str = input(
+                    "\nIngresa el día de la semana (Ej. 'Lunes', 'Sabado', 'Domingo'):\n> ").strip().lower()
                 if dia_str in dias_validos:
                     dia_usuario = dia_str.capitalize()
                     break
                 else:
-                    print(" Día no reconocido. Por favor, escribe un día de la semana válido sin abreviar.")
+                    print(" Día no reconocido. Por favor, escribe un día válido.")
 
             # --- VALIDACIÓN DE LA HORA ---
             while True:
-                hora_str = input(" Ingresa la hora del reporte (Formato 24h, solo números del 0 al 23):\n> ").strip()
+                hora_str = input("Ingresa la hora del reporte (Formato 24h, 0 al 23):\n> ").strip()
                 if hora_str.isdigit() and 0 <= int(hora_str) <= 23:
                     hora_usuario = int(hora_str)
                     break
                 else:
-                    print(" Hora inválida. Por favor, ingresa únicamente un número entre 0 y 23.")
+                    print(" Hora inválida. Ingresa un número entre 0 y 23.")
 
             print("\nCalculando matriz de rutas...")
-            simular_despacho(G, hospitales_nodos, lat_usuario, lng_usuario, hora_usuario, dia_usuario, f"Emergencia: {direccion_usuario}")
+            simular_despacho(G, hospitales_nodos, lat_usuario, lng_usuario, hora_usuario, dia_usuario,f"Emergencia en {nombre_emergencia}")
 
         except Exception as e:
-            print(f"\n Error: No pudimos localizar '{direccion_usuario}' en el mapa.")
-            print("Intenta ser un poco más específico (Ej. 'Parque Fundidora' o 'Avenida Paseo de los Leones').")
+            print(f"\nError: No pudimos localizar '{entrada_usuario}' en el mapa.")
+            print("Pruebe con una ubicación válida o con coordenadas de Longitud y latitud")
+
+
 if __name__ == "__main__":
     main()
