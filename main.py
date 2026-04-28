@@ -235,20 +235,6 @@ def main():
     for nombre, (lat, lng) in coordenadas_bases.items():
         hospitales_nodos[nombre] = ox.distance.nearest_nodes(G, X=lng, Y=lat)
 
-    pruebas = [
-        {"nombre": "Choque en Constitución", "lat": 25.6695, "lng": -100.3415, "hora": 18, "dia": "Lunes"},
-        {"nombre": "Choque en Constitución", "lat": 25.6695, "lng": -100.3415, "hora": 18, "dia": "Domingo"},
-        {"nombre": "Incidente en Fundidora", "lat": 25.6800, "lng": -100.2860, "hora": 13, "dia": "Miercoles"},
-        {"nombre": "Emergencia en Tec de Monterrey", "lat": 25.6515, "lng": -100.2900, "hora": 18, "dia": "Jueves"},
-        {"nombre": "Volcadura en Galerías Monterrey", "lat": 25.6805, "lng": -100.3450, "hora": 0, "dia": "Sabado"},
-        {"nombre": "Altercado automovilístico en Leones", "lat": 25.695759, "lng": -100.343029, "hora": 18, "dia": "Martes"},
-        {"nombre": "Altercado automovilístico en Leones", "lat": 25.695759, "lng": -100.343029, "hora": 12, "dia": "Domingo"}
-    ]
-
-    for prueba in pruebas:
-        simular_despacho(G, hospitales_nodos, prueba["lat"], prueba["lng"], prueba["hora"], prueba["dia"],prueba["nombre"])
-
-
     # MODO INTERACTIVO (DESPACHO EN TIEMPO REAL)
     print("\n============================================================")
     print(" SISTEMA DE DESPACHO INTERACTIVO INICIADO")
