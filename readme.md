@@ -42,10 +42,19 @@ Para iniciar el Centro de Comando Interactivo, ejecuta el archivo principal:
 ```bash
 python main.py
 ```
+
+## Descargar Ejecutable (Versión Portable)
+
+Si deseas probar el simulador interactivo sin instalar Python ni configurar entornos virtuales, puedes descargar la versión compilada lista para usar en Windows.
+
+1. Ve a la sección de [Releases]([https://github.com/Echacon57/DespachoEMMI_Emergencias/releases/tag/1.0.0]) del repositorio.
+2. Descarga los archivos `DespachoEMMI.exe` y `monterrey_red_ambulancias.graphml`(opcional).
+3. Asegúrate de colocar **ambos archivos en la misma carpeta** en tu computadora.
+4. Haz doble clic en `DespachoEMMI.exe` para iniciar el Centro de Comando. *(Nota: La primera ejecución puede tardar unos segundos en arrancar mientras carga el motor de datos en memoria).*
 1. El sistema verificará si existe el archivo de caché local (.graphml). Si no existe, descargará el mapa de la ciudad (puede tardar un par de minutos la primera vez).
 2. Ingresa una dirección o punto de referencia en Monterrey (ej. Macroplaza).
 3. Ingresa el día de la semana y la hora de la emergencia (formato 24h).
-4. El sistema calculará la matriz, imprimirá las indicaciones de navegación del Top 3 y abrirá la ventana gráfica con la ruta.
+4. El sistema calculará la matriz, imprimirá las indicaciones de navegación del Top 3 y abrirá la ventana gráfica con la ruta, además de guardarla en un nuevo folder llamado `reportes_viales`.
 
 ## Ejemplo de visualización
 ![Ejemplo de Ruta](reportes_viales/Choque_en_Constitución_Lunes_18hrs.png)
